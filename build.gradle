@@ -72,8 +72,12 @@ publishing {
             groupId = 'me.thezombiepl.plugin'
             artifactId = 'zcore'
             version = project.version
-            
             from components.java
+			artifact(shadowJar) {
+                classifier = ''
+            }
+            artifact sourcesJar
+            artifact javadocJar
         }
     }
 }
