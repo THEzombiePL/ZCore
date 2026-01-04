@@ -69,16 +69,17 @@ shadowJar {
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId = 'me.thezombiepl.plugin'
+            groupId = project.group
             artifactId = 'zcore'
             version = project.version
-            from components.java
-			artifact(shadowJar) {
-                classifier = ''
+
+            artifact(shadowJar) {
+                classifier = null
             }
         }
     }
 }
+
 
 tasks.jar.enabled = false
 tasks.build.dependsOn shadowJar
