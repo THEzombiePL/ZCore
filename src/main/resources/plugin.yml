@@ -1,0 +1,7 @@
+name: ZCore
+version: 1.0.0
+main: me.thezombiepl.plugin.zcore.ZCorePlugin
+author: [THEzombiePL]
+description: Core utility library with shared Adventure API
+website: https://github.com/THEzombiePL/ZCore
+load: STARTUP

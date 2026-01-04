@@ -1,0 +1,3 @@
+rootProject.name = 'ZCore'
+
+gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS_FULL
