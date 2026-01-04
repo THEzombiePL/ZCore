@@ -76,8 +76,6 @@ publishing {
 			artifact(shadowJar) {
                 classifier = ''
             }
-            artifact sourcesJar
-            artifact javadocJar
         }
     }
 }
