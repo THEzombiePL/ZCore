@@ -58,13 +58,7 @@ shadowJar {
     archiveClassifier = ''
     
 	exclude 'META-INF/**'
-    exclude 'module-info.class'
-    exclude '**/*.kotlin_*'
-    exclude '**/*.md'
-    exclude '**/*.SF'
-    exclude '**/*.MF'
-    exclude '**/*.DSA'
-    exclude '**/*.RSA'
+
 
     
     mergeServiceFiles()
