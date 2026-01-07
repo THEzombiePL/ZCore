@@ -10,6 +10,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 
 /**
  * Manager do zarządzania plikami konfiguracyjnymi używając BoostedYAML.
@@ -18,7 +20,7 @@ import java.io.IOException;
  * wersjonowanie i auto-update konfiguracji.
  * </p>
  * 
- * @author TheZombiePL
+ * @author THEzombiePL
  * @version 1.0.0
  */
 public class ConfigManager {
@@ -48,6 +50,72 @@ public class ConfigManager {
                 UpdaterSettings.builder().setVersioning(new BasicVersioning("config-version")).build()
         );
     }
+
+    /**
+     * Tworzy nowy ConfigManager dla Velocity plugin.
+     * <p>
+     * Wersja dla Velocity, która nie wymaga JavaPlugin.
+     * </p>
+     * 
+     * @param dataFolder Folder danych pluginu
+     * @param fileName Nazwa pliku konfiguracyjnego
+     * @throws IOException Jeśli wystąpi błąd podczas ładowania lub tworzenia pliku
+     */
+	public ConfigManager(File dataFolder, String fileName, InputStream defaults) throws IOException {
+		if (!dataFolder.exists() && !dataFolder.mkdirs()) {
+			throw new IOException("Nie udało się utworzyć folderu: " + dataFolder.getAbsolutePath());
+		}
+
+		File configFile = new File(dataFolder, fileName);
+
+		if (!configFile.exists()) {
+			if (defaults != null) {
+				Files.copy(defaults, configFile.toPath());
+			} else {
+				configFile.createNewFile();
+			}
+		}
+
+		this.config = createYamlDocument(configFile, defaults);
+	}
+
+	private YamlDocument createYamlDocument(File configFile, InputStream defaults) throws IOException {
+		if (defaults != null) {
+			try {
+				return YamlDocument.create(
+						configFile,
+						defaults,
+						GeneralSettings.DEFAULT,
+						LoaderSettings.builder().setAutoUpdate(true).build(),
+						DumperSettings.DEFAULT,
+						UpdaterSettings.builder()
+								.setVersioning(new BasicVersioning("config-version"))
+								.build()
+				);
+			} catch (NullPointerException e) {
+				// Fallback: brak version ID w defaults - tworzymy bez versioning
+				return YamlDocument.create(
+						configFile,
+						GeneralSettings.DEFAULT,
+						LoaderSettings.builder().setAutoUpdate(true).build(),
+						DumperSettings.DEFAULT,
+						UpdaterSettings.DEFAULT
+				);
+			}
+		} else {
+			return YamlDocument.create(
+					configFile,
+					GeneralSettings.DEFAULT,
+					LoaderSettings.DEFAULT,
+					DumperSettings.DEFAULT,
+					UpdaterSettings.DEFAULT
+			);
+		}
+	}
+
+
+
+
 
     /**
      * Pobiera obiekt YamlDocument do bezpośredniego dostępu.

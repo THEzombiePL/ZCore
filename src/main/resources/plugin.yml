@@ -1,7 +1,8 @@
 name: ZCore
 version: 1.0.0
-main: me.thezombiepl.plugin.zcore.ZCorePlugin
+main: me.thezombiepl.plugin.zcore.ZCoreBukkit
 author: [THEzombiePL]
+api-version: 1.13
 description: Core utility library with shared Adventure API
 website: https://github.com/THEzombiePL/ZCore
 load: STARTUP
