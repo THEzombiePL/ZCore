@@ -14,7 +14,8 @@ import java.nio.file.Path;
     name = "ZCore",
     version = "1.0.0",
     description = "Core utilities library",
-    authors = {"THEzombiePL"}
+    authors = {"THEzombiePL"},
+	url = "https://github.com/THEzombiePL/ZCore"
 )
 public class ZCoreVelocity {
 
@@ -28,7 +29,7 @@ public class ZCoreVelocity {
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
         logger.info("========================================");
-        logger.info("  ZCore v1.0.0");
+        logger.info("  ZCore v1.0.1");
         logger.info("  Platform: Velocity Proxy");
         logger.info("  Shared libraries included & relocated:");
         logger.info("  ✓ Adventure API (Native)");
